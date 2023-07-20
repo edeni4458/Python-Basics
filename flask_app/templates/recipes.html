@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <h1 class="text-center">Welcome {{session.first_name}}!!!</h1>
+    <h3 class="text-center">Posted recipes below</h3>
+
+    <table class="table table-info">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Posted By</th>
+                <th>Date Posted</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for recipe in recipes %}
+            <tr>
+                <td>{{ recipe.name}}</td>
+                <td>{{ recipe.description}}</td>
+                <td>{{ recipe.first_name}}</td>
+                <td>{{ recipe.date_made}}</td>
+                <td><a href="/recipes/show_recipes/{{recipe.id}}">Show</a>{% if recipe.user_id == session.user_id %}
+                <a href="/recipes/delete_recipes/{{recipe.id}}">Delete</a>    
+                    
+                    <a href="/recipes/edit_recipes/{{recipe.id}}">Edit</a></td>
+                    {% endif %}
+                    {% endfor %}
+        </tbody>
+    </table>
+
+
+
+
+
+
+    <a href="/logout" class="btn btn-info">Logout</a>
+    <a href="/recipes/new" class="btn btn-info">Create Recipe</a>
+    
+</body>
+</html>
